@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+      button { width: 9.5%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script>
+    $(function () {
+      var socket = io();
+
+      window.prompt('Enter your Nickname')
+
+      $('form').submit(function(){
+        socket.emit('chat message', JSON.stringify({'msg' : $('#m').val(), 'user_id' : socket.id}));
+
+        $('#m').val('');
+        return false;
+      });
+
+      $("#changeNick").click(function(){
+          $("#myModal").modal();
+      });
+
+      $("#setNick").click(function(){
+          if($('#newNick').val().length > 0) {
+            var oldNick = socket.nickName || socket.id;
+            socket.nickName = $('#nickName').val();
+            $('#nickName').val('');
+            socket.emit('nick_change', {'old_nick' : oldNick, 'new_nick' : socket.nickName});
+          }
+      });
+
+      //Socket.io functions
+      socket.on('chat message', function(data){
+        $('#messages').append($('<li>').text(data.user_id + " : " + data.msg));
+      });
+
+      socket.on('user_join', function(user) {
+        $('#messages').append($('<li>').text(user + " has joined the chat!!"));
+      })
+
+      socket.on('user_left', function(user) {
+        $('#messages').append($('<li>').text(user + " has left the chat!!"));
+      })
+
+      socket.on('nick_change', function(data) {
+        $('#messages').append($('<li>').text("New Nickname : " + data.old_nick + " --> " + data.new_nick));
+      })
+    });
+  </script>
+  <body>
+    <ul id="messages"></ul>
+
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Change Your Nickname</h4>
+            </div>
+
+            <div class="modal-body">
+              <input id="newNick"></input>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="setNick" type="button" class="btn btn-default" data-dismiss="modal">Apply</button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+      <button id="changeNick"=>Change Nick</button>
+    </form>
+
+  </body>
+</html>
