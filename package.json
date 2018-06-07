@@ -1,0 +1,31 @@
+{
+  "name": "chatapp",
+  "version": "1.0.0",
+  "description": "A test app, to gain better understanding of sockets and redis etc.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "redis": "^2.8.0",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "PORT=3000 node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valroque/chatApp.git"
+  },
+  "keywords": [
+    "chatApp",
+    "webSockets",
+    "redis"
+  ],
+  "author": "Sparsh Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Valroque/chatApp/issues"
+  },
+  "homepage": "https://github.com/Valroque/chatApp#readme"
+}
