@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Damn Chat!!</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="application/javascript" src="/js/chats.js"></script>
+
+  <body>
+      <ul id="messages"></ul>
+
+      <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Change Your Nickname</h4>
+                </div>
+
+                <div class="modal-body">
+                  <input id="newNick"></input>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="setNick" type="button" class="btn btn-default" data-dismiss="modal">Apply</button>
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <form action="" class="chatpage">
+        <input id="m" autocomplete="off" /><button>Send</button>
+        <button id="changeNick"=>Change Nick</button>
+      </form>
+  </body>
+</html>

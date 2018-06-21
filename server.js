@@ -1,16 +1,15 @@
-var app = require('express')();
+const express = require('express');
+const app = express();
+var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var port = process.env.PORT || 3000;
 var io = require('socket.io')(http);
-var redis = require("redis");
-var chatServer = {
-  'host' : 'localhost',
-  'port' : '6379'
-}
-var pubClient = redis.createClient(chatServer);
-var subClient = redis.createClient(chatServer);
-subClient.subscribe("chatRadio");
+var userActions = require('./users.js');
+import {subClient, pubClient, redisClient} from './utils.js';
 
+app.use(express.static(__dirname + '../public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //defaults
 var userNick = "Annonymous"
 var connections = 0;
@@ -20,11 +19,11 @@ var checkLoggedIn = function(req, res, next) {
   if(false) {
     next();
   } else {
-    res.sendFile(__dirname + '/login.html');
+    res.sendFile('/views/login.html');
   }
 }
 
-app.use(checkLoggedIn);
+//app.use(checkLoggedIn);
 
 io.on('connection', function(socket){
   socket.on('chat_message', function(data){
@@ -74,9 +73,25 @@ io.on('connection', function(socket){
   })
 });
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/login.html');
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/../views/login.html');
 });
+
+app.get('/register', function(req, res) {
+  res.sendFile(__dirname + '/../views/login.html');
+})
+
+app.post('/register', function(req, res) {
+  if(userActions.validateUsername(req.body.userName)) {
+    userActions.createUser(req, res);
+  } else {
+    res.send({'status':0, 'message':'Username already exists'});
+  }
+})
+
+app.post('/api/login', function(req, res) {
+  console.log(req.body, req.params, req.query);
+})
 
 http.listen(port, function(){
   console.log('listening on *:', port);

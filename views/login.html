@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Welcome to chatApp</title>
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+        <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script type="application/javascript" src="/js/login.js"></script>
+    </head>
+    <body>
+
+        <div class="loginBar">
+          <div class="appLogo">
+            <p>Chat App</p>
+          </div>
+          <div class="loginForm">
+            <form action="/login" enctype="text/plain" method="post">
+              <table>
+                  <tr>
+                      <td>Username</td>
+                      <td>Password</td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <input type="text" name="userName" autocomplete="off" placeholder="your nick">
+                      </td>
+                      <td>
+                        <input type="password" name="password" autocomplete="off" placeholder="your password">
+                      </td>
+                      <td>
+                        <input type="submit" value="LogIn">
+                      <td>
+                  </tr>
+                  <tr>
+                      <td><a style="text-decoration:none;font-size:12px" href="/lostPassword">Forgot Passowrd?</a></td>
+                      <td><a style="text-decoration:none;font-size:12px" href="/register">New User?</a></td>
+                  </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+
+        <div class="registrationForm hide">
+          <form action="/register" enctype="text/plain" method="post">
+            <table>
+              <tr>
+                  <td>Username</td>
+              </tr>
+              <tr>
+                  <input type='text' autocomplete="off" name="userName" placeholder="eg: Nick">
+              </tr>
+              <tr>
+                  <td>Password</td>
+              </tr>
+              <tr>
+                  <input type='text' autocomplete="off" name="password" placeholder="******">
+              </tr>
+              <tr>
+                  <input type="submit" value="Register">
+              </tr>
+              <tr>
+                  <p id="notification"></p>
+              </tr>
+            </table>
+          </form>
+        </div>
+    </body>
+</html>
