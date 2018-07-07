@@ -2,10 +2,10 @@
 <html>
     <head>
         <title>Welcome to chatApp</title>
-        <link rel="stylesheet" type="text/css" href="/css/login.css">
+        <link rel="stylesheet" type="text/css" href="/css/auth.css">
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-        <script type="application/javascript" src="/js/login.js"></script>
+        <script type="application/javascript" src="/js/auth.js"></script>
     </head>
     <body>
 
@@ -14,7 +14,7 @@
             <p>Chat App</p>
           </div>
           <div class="loginForm">
-            <form action="/login" enctype="text/plain" method="post">
+            <form action="/auth/login" method="post">
               <table>
                   <tr>
                       <td>Username</td>
@@ -23,47 +23,22 @@
                   </tr>
                   <tr>
                       <td>
-                        <input type="text" name="userName" autocomplete="off" placeholder="your nick">
+                        <input id="userNameLogin" type="text" autocomplete="off" placeholder="your nick">
                       </td>
                       <td>
-                        <input type="password" name="password" autocomplete="off" placeholder="your password">
+                        <input id="passwordLogin" type="password" name="password" autocomplete="off" placeholder="your password">
                       </td>
                       <td>
-                        <input type="submit" value="LogIn">
+                        <input id="login" type="submit" value="LogIn">
                       <td>
                   </tr>
                   <tr>
-                      <td><a style="text-decoration:none;font-size:12px" href="/lostPassword">Forgot Passowrd?</a></td>
-                      <td><a style="text-decoration:none;font-size:12px" href="/register">New User?</a></td>
+                      <td><a style="text-decoration:none;font-size:12px" href="/auth/lostPassword">Forgot Passowrd?</a></td>
+                      <td><a style="text-decoration:none;font-size:12px" href="/auth/register">New User?</a></td>
                   </tr>
               </table>
             </form>
           </div>
-        </div>
-
-        <div class="registrationForm hide">
-          <form action="/register" enctype="text/plain" method="post">
-            <table>
-              <tr>
-                  <td>Username</td>
-              </tr>
-              <tr>
-                  <input type='text' autocomplete="off" name="userName" placeholder="eg: Nick">
-              </tr>
-              <tr>
-                  <td>Password</td>
-              </tr>
-              <tr>
-                  <input type='text' autocomplete="off" name="password" placeholder="******">
-              </tr>
-              <tr>
-                  <input type="submit" value="Register">
-              </tr>
-              <tr>
-                  <p id="notification"></p>
-              </tr>
-            </table>
-          </form>
         </div>
     </body>
 </html>

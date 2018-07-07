@@ -1,13 +1,36 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+var session = require('express-session');
+var redisStore = require('connect-redis')(session);
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var port = process.env.PORT || 3000;
 var io = require('socket.io')(http);
-var userActions = require('./users.js');
-import {subClient, pubClient, redisClient} from './utils.js';
+const utils = require('./routes/utils.js');
+const redisClient = utils.redisClient;
+const subClient = utils.subClient;
+const pubClient = utils.pubClient;
 
-app.use(express.static(__dirname + '../public'));
+
+app.use(express.static('public'));
+app.set('views', __dirname + '/views');
+app.use(session({
+  'secret' : 'keyboard cat',
+  'store': new redisStore({
+    host: 'localhost',
+    port: 6379,
+    disableTTL: true
+  }),
+  'cookie' : {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: 24*60*60*1000
+  },
+  'saveUninitialized' : false,
+  'resave' : false
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //defaults
@@ -16,10 +39,11 @@ var connections = 0;
 
 //middlewares
 var checkLoggedIn = function(req, res, next) {
-  if(false) {
+  console.log("Session:", req.sessionID);
+  if(req.session && req.session.userId) {
     next();
   } else {
-    res.sendFile('/views/login.html');
+    res.sendFile(path.resolve(__dirname, './views/login.html'));
   }
 }
 
@@ -73,25 +97,13 @@ io.on('connection', function(socket){
   })
 });
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/../views/login.html');
+app.use('/auth', require('./routes/auth.js'));
+
+app.get('/', checkLoggedIn, function(req, res) {
+  res.sendFile(path.resolve(__dirname, './views/index.html'));
 });
 
-app.get('/register', function(req, res) {
-  res.sendFile(__dirname + '/../views/login.html');
-})
-
-app.post('/register', function(req, res) {
-  if(userActions.validateUsername(req.body.userName)) {
-    userActions.createUser(req, res);
-  } else {
-    res.send({'status':0, 'message':'Username already exists'});
-  }
-})
-
-app.post('/api/login', function(req, res) {
-  console.log(req.body, req.params, req.query);
-})
+app.use('/userActions', checkLoggedIn, require('./routes/usersActions.js'));
 
 http.listen(port, function(){
   console.log('listening on *:', port);

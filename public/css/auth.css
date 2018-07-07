@@ -1,0 +1,56 @@
+.loginBar {
+  height: 60px;
+  background-color: #ccebff;
+  padding: 10px;
+}
+
+.loginBar p {
+  margin: 10px;
+}
+
+.loginBar input {
+  margin-right: 20px;
+}
+
+.appLogo {
+  float: left;
+  margin-left: 10%;
+}
+
+.appLogo p{
+  font-size: 24px;
+  color: #009933;
+  margin: 15px 0px 0px 0px;
+}
+
+.loginForm {
+  float: right;
+  margin-right: 10%;
+}
+
+.loginForm p{
+  margin: 0px;
+}
+
+.loginForm div{
+  float: right;
+  background-color: #99c2ff;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.registrationForm {
+  width: 30%;
+  margin: 100px 0 0 35%;
+  padding: 10px 20px;
+  background-color: beige;
+}
+
+.registrationForm table {
+  width: 40%;
+  margin: 0 30%;
+}
+
+* {
+  font-family: 'Courier New'
+}

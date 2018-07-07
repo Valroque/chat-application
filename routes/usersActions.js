@@ -1,4 +1,10 @@
-import {redisClient} from './utils.js';
+const utils = require('./utils.js');
+const redisClient = utils.redisClient;
+const router = require('express').Router();
+
+router.post('/login', function(req, res) {
+  console.log(req.body);
+})
 
 function createUser(req, res) {
   var user = {
@@ -60,3 +66,5 @@ function userLogin(req, res) {
   })
 }
 exports.userLogin = userLogin;
+
+module.exports = router;

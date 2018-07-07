@@ -4,7 +4,9 @@
   "description": "A test app, to gain better understanding of sockets and redis etc.",
   "main": "server.js",
   "dependencies": {
+    "connect-redis": "^3.3.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "redis": "^2.8.0",
     "socket.io": "^2.1.1"
   },

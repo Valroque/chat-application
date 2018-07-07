@@ -7,12 +7,14 @@ socket.nickName = newNick;
 socket.emit('nick_change', {'old_nick' : "", 'new_nick' : socket.nickName});
 
 $('form').submit(function(){
-  socket.emit('chat_message', {'msg' : $('#m').val(), 'user' : socket.nickName});
+  socket.emit('chat_message', {'msg' : $('#mssgText').val(), 'user' : socket.nickName});
 
-  $('#m').val('');
+  $('#mssgText').val('');
   return false;
 });
 
+
+//change Nick
 $("#changeNick").click(function(){
     $("#myModal").modal();
 });
@@ -26,6 +28,10 @@ $("#setNick").click(function(){
     }
 });
 
+socket.on('nick_change', function(data) {
+  $('#messages').append($('<li>').text("New Nickname : " + data.old_nick + " --> " + data.new_nick));
+})
+
 //Socket.io functions
 socket.on('chat_message', function(data){
   $('#messages').append($('<li>').text(data.user + " : " + data.msg));
@@ -34,10 +40,6 @@ socket.on('chat_message', function(data){
 socket.on('user_left', function(data) {
   console.log(data);
   $('#messages').append($('<li>').text(data.user + " has left the chat!!"));
-})
-
-socket.on('nick_change', function(data) {
-  $('#messages').append($('<li>').text("New Nickname : " + data.old_nick + " --> " + data.new_nick));
 })
 
 socket.on('new_user', function(data) {

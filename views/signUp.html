@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Welcome to chatApp</title>
+        <link rel="stylesheet" type="text/css" href="/css/auth.css">
+        <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script type="application/javascript" src="/js/auth.js"></script>
+    </head>
+    <body>
+      <div class="registrationForm">
+        <form>
+          <table>
+            <tr>
+                <td>Username</td>
+            </tr>
+            <tr>
+                <td>
+                  <input id='userNameReg' type='text' autocomplete="off" placeholder="eg: Nick">
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+            </tr>
+            <tr>
+                <td>
+                  <input id='passwordReg' type='password' autocomplete="off" placeholder="******">
+                </td>
+            </tr>
+            <tr>
+                <td>Re-enter Password</td>
+            </tr>
+            <tr>
+                <td>
+                  <input id='repasswordReg' type='password' autocomplete="off" placeholder="******">
+                </td>
+            </tr>
+            <tr>
+              <td>
+                <input id="register" type="submit" value="Register">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style='color:red;' id="notificationReg"></p>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </body>
+</html>
