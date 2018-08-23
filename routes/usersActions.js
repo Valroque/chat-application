@@ -2,10 +2,6 @@ const utils = require('./utils.js');
 const redisClient = utils.redisClient;
 const router = require('express').Router();
 
-router.post('/login', function(req, res) {
-  console.log(req.body);
-})
-
 function createUser(req, res) {
   var user = {
     'user_id' : req.body.user_id,

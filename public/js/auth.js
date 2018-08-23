@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $("#register").click(function(event) {
     event.preventDefault();
 
@@ -15,7 +14,7 @@ $(document).ready(function() {
             success : function(data) {
               if(data.status == 1) {
                 window.location = window.location.origin;
-              } else if(data.staus == 0) {
+              } else if(data.status == 0) {
                 $('#notificationReg').text(data.message);
               }
             }
@@ -48,5 +47,4 @@ $(document).ready(function() {
     })
 
   })
-
 })

@@ -55,4 +55,16 @@ router.post('/login', function(req, res) {
   }
 })
 
+router.get('/logout', function(req, res) {
+  req.session.destroy(function(error) {
+    if(error) {
+      console.log(error);
+      res.send({ status : 0, message : "Uable to log you out"});
+    } else {
+      //res.sendFile(path.resolve(__dirname, "../views/login.html"));
+      res.redirect('/');
+    }
+  })
+})
+
 module.exports = router;

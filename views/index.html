@@ -1,41 +1,17 @@
 <!doctype html>
 <html>
   <head>
-    <title>Damn Chat!!</title>
+    <title>Chat App!!</title>
     <link rel="stylesheet" type="text/css" href="/css/chatPage.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+    <script type="application/javascript" src="/js/chats.js"></script>
   </head>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script type="application/javascript" src="/js/chats.js"></script>
 
   <body>
-      <ul id="messages"></ul>
-
-      <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Change Your Nickname</h4>
-                </div>
-
-                <div class="modal-body">
-                  <input id="newNick"></input>
-                </div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button id="setNick" type="button" class="btn btn-default" data-dismiss="modal">Apply</button>
-                </div>
-            </div>
-          </div>
-      </div>
-
-      <form action="" class="chatpage">
-        <input id="mssgText" autocomplete="off" /><button>Send</button>
-        <button id="changeNick"=>Change Nick</button>
-      </form>
+      <div id="main"></div>
   </body>
 </html>

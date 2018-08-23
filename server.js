@@ -14,7 +14,6 @@ const pubClient = utils.pubClient;
 
 
 app.use(express.static('public'));
-app.set('views', __dirname + '/views');
 app.use(session({
   'secret' : 'keyboard cat',
   'store': new redisStore({
@@ -34,12 +33,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //defaults
-var userNick = "Annonymous"
+//var userNick = "Annonymous"
 var connections = 0;
 
 //middlewares
 var checkLoggedIn = function(req, res, next) {
-  console.log("Session:", req.sessionID);
   if(req.session && req.session.userId) {
     next();
   } else {
@@ -57,21 +55,23 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', function() {
-    var data = {'event' : 'user_left', 'user' : userNick};
-    console.log("disconnect:", data);
-    pubClient.publish("chatRadio", JSON.stringify(data));
+    //var data = {'event' : 'user_left', 'user' : userNick};
+    console.log("disconnect", socket.id);
+    //pubClient.publish("chatRadio", JSON.stringify(data));
   })
 
   socket.on('nick_change', function(data) {
     console.log("nick_change:", data);
-    userNick = data.new_nick;
-    if(data["old_nick"].length > 0) {
-      data['event'] = 'nick_change';
-      pubClient.publish("chatRadio", JSON.stringify(data));
-    } else {
-      data['event'] = 'new_user';
-      pubClient.publish("chatRadio", JSON.stringify(data));
-    }
+
+    data['event'] = 'nick_change';
+    pubClient.publish("chatRadio", JSON.stringify(data));
+  })
+
+  socket.on('newUser', function(data) {
+    console.log("newUser:", data);
+
+    data['event'] = 'new_user';
+    pubClient.publish("chatRadio", JSON.stringify(data));
   })
 
   subClient.on('message', function(channel, data) {
@@ -103,7 +103,7 @@ app.get('/', checkLoggedIn, function(req, res) {
   res.sendFile(path.resolve(__dirname, './views/index.html'));
 });
 
-app.use('/userActions', checkLoggedIn, require('./routes/usersActions.js'));
+app.use('/user_actions', checkLoggedIn, require('./routes/usersActions.js'));
 
 http.listen(port, function(){
   console.log('listening on *:', port);
